@@ -1,4 +1,4 @@
-const CoffeeShop = require('../models/coffeeShop.model');
+const { CoffeeShop } = require('../models');
 const coffeeShopSchema = require('../validators/coffeeShopValidators');
 
 const getAllCoffeeShops = async (req, res, next) => {
@@ -52,7 +52,7 @@ const deleteCoffeeShop = async (req, res, next) => {
   try {
     const coffeeShop = await CoffeeShop.findByPk(req.params.id);
     if (!coffeeShop)
-      res.status(404).json({ error: "Not found" });
+      return res.status(404).json({ error: "Not found" });
     await coffeeShop.destroy();
     res.status(200).json({ message: "Deleted Sucessfully" });
   } catch (error) {
